@@ -87,8 +87,8 @@
     <td id="data10">Close</td>
     <td id="data11">Open</td>
     <td id="data12">Close</td>
-    <td id="timer3"></td>
-    <td id="timer4"></td>
+    <td id="timer3">600</td>
+    <td id="timer4">600</td>
 
   </tr>
 </table>
@@ -122,8 +122,8 @@
     <td id="data16">Close</td>
     <td id="data17">Open</td>
     <td id="data18">Open</td>
-    <td id="timer5"></td>
-    <td id="timer6"></td>
+    <td id="timer5">600</td>
+    <td id="timer6">600</td>
 
   </tr>
 </table>
@@ -180,16 +180,24 @@
 
 
   let currentTimer = 1;
+  let currentTimer_2 = 3;
+  let currentTimer_3 = 5;
+
   let timers = [600, 0];
+  let timers_2 = [600, 0];
+  let timers_3 = [600, 0];
   let intervalId;
 
   function startTimers() {
     intervalId = setInterval(updateTimer, 1000);
 
+
   }
 
   function updateTimer() {
     timers[currentTimer - 1]--;
+    timers_2[currentTimer_2 - 1]--;
+    timers_3[currentTimer_3 - 1]--;
 
     if (timers[currentTimer - 1] < 0) {
       clearInterval(intervalId);
@@ -198,7 +206,22 @@
       startTimers();
     } 
 
+
+    if (timers_2[currentTimer_2 - 1] < 0) {
+      currentTimer_2 = 5 - currentTimer_2; // Switch to the other timer
+      timers[currentTimer_2 - 1] = 600; // Reset the timer
+    } 
+
+
+    if (timers_3[currentTimer_3 - 1] < 0) {
+      currentTimer_3 = 8 - currentTimer_3; // Switch to the other timer
+      timers[currentTimer_3 - 1] = 600; // Reset the timer
+    } 
+
     document.getElementById(`timer${currentTimer}`).textContent = timers[currentTimer - 1];
+    document.getElementById(`timer${currentTimer_2}`).textContent = timers[currentTimer - 1];
+    document.getElementById(`timer${currentTimer_3}`).textContent = timers[currentTimer - 1];
+
     
   }
 
