@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+</style>
+</head>
+<body>
+<h3>Sterilizer Tank 1</h3>
+
+
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Device</th>
+    <th>Temp</th>
+    <th>Pressure</th>
+    <th>Amp</th>
+    <th>Steam Inlet Valve Status</th>
+    <th>Steam Exhaust Valve Status</th>
+    <th>Condensate Status</th>
+    <th>Timer 1</th>
+    <th>Timer 2</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Sterilizer Tank Unit 1</td>
+    <td id="data1">Data 1 </td>
+    <td id="data2">Data 2</td>
+    <td id="data3">Data 3</td>
+    <td id="data4">Open</td>
+    <td id="data5">Close</td>
+    <td id="data6">Open</td>
+    <td id="timer1">600</td>
+    <td id="timer2">600</td>
+
+  </tr>
+</table>
+
+
+
+
+<h3>Sterilizer Tank 2</h3>
+
+
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Device</th>
+    <th>Temp</th>
+    <th>Pressure</th>
+    <th>Amp</th>
+    <th>Steam Inlet Valve Status</th>
+    <th>Steam Exhaust Valve Status</th>
+    <th>Condensate Status</th>
+    <th>Timer 1</th>
+    <th>Timer 2</th>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Sterilizer Tank Unit 2</td>
+    <td id="data7">Data 4</td>
+    <td id="data8">Data 5</td>
+    <td id="data9">Data 6</td>
+    <td id="data10">Close</td>
+    <td id="data11">Open</td>
+    <td id="data12">Close</td>
+    <td id="timer3"></td>
+    <td id="timer4"></td>
+
+  </tr>
+</table>
+
+
+
+
+<h3>Sterilizer Tank 3</h3>
+
+
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Device</th>
+    <th>Temp</th>
+    <th>Pressure</th>
+    <th>Amp</th>
+    <th>Steam Inlet Valve Status</th>
+    <th>Steam Exhaust Valve Status</th>
+    <th>Condensate Status</th>
+    <th>Timer 1</th>
+    <th>Timer 2</th>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Sterilizer Tank Unit 3</td>
+    <td id="data13">Data 4</td>
+    <td id="data14">Data 5</td>
+    <td id="data15">Data 6</td>
+    <td id="data16">Close</td>
+    <td id="data17">Open</td>
+    <td id="data18">Open</td>
+    <td id="timer5"></td>
+    <td id="timer6"></td>
+
+  </tr>
+</table>
+
+
+
+
+
+
+
+<script>
+  function updateData() {
+    const dataElements = [
+      "data1", "data2", "data3", "data4", "data5", "data6","data7","data8","data9","data13","data14","data15"
+    ];
+    
+    dataElements.forEach(elementId => {
+      const element = document.getElementById(elementId);
+      if(elementId =="data1"){
+        element.textContent = getRandomValue(110,130);
+      } else if(elementId == "data2"){
+        element.textContent = getRandomValue(1,2);
+      }else if(elementId == "data3"){
+        element.textContent = getRandomValue(75,85);
+      } else if(elementId == "data7"){
+        element.textContent = getRandomValue(110,130);  
+      }else if(elementId == "data8"){
+        element.textContent = getRandomValue(1,2);
+      }else if(elementId == "data9"){
+        element.textContent = getRandomValue(75,85);
+      }else if(elementId == "data13"){
+        element.textContent = getRandomValue(110,130);
+      }else if(elementId == "data14"){
+        element.textContent = getRandomValue(1,2);
+      }else if(elementId == "data15"){
+        element.textContent = getRandomValue(75,85);
+      }else{
+
+      }
+    });
+  }
+  
+
+
+
+
+
+  
+
+  function getRandomValue(min, max) {
+  const random = Math.random() * (max - min) + min;
+  return random.toFixed(2);
+}
+
+
+  let currentTimer = 1;
+  let timers = [600, 0];
+  let intervalId;
+
+  function startTimers() {
+    intervalId = setInterval(updateTimer, 1000);
+
+  }
+
+  function updateTimer() {
+    timers[currentTimer - 1]--;
+
+    if (timers[currentTimer - 1] < 0) {
+      clearInterval(intervalId);
+      currentTimer = 3 - currentTimer; // Switch to the other timer
+      timers[currentTimer - 1] = 600; // Reset the timer
+      startTimers();
+    } 
+
+    document.getElementById(`timer${currentTimer}`).textContent = timers[currentTimer - 1];
+    
+  }
+
+  startTimers();
+
+  setInterval(updateData, 1000); // Update every second
+
+
+
+  /*
+
+
+
+
+
+  */
+
+
+
+
+  
+
+
+  //setInterval(updateData, 1000); // Update every second
+/*
+
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+    function toggleStatus(element) {
+        if (element.textContent === 'Open') {
+            element.textContent = 'Closed';
+        } else {
+            element.textContent = 'Open';
+        }
+    }
+
+    function updateData_2() {
+        const cells = document.querySelectorAll('#data4, #data5, #data6, #data10, #data11, #data12, #data16, #data17, #data18');
+        cells.forEach(cell => toggleStatus(cell));
+    }
+
+    // Update the data every 10 seconds
+    setInterval(updateData_2, 10000);
+
+</script>
+</body>
+</html>
