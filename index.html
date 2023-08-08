@@ -44,7 +44,14 @@
 </style>
 
 </head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <body>
+ 
+
+
+  
+    <br>
     <img src="Person.gif" alt="Animated GIF" style="display:inline; width:100px; height:100px;">
 <h3 style="display:inline; ">Sterilizer Tank 1</h3>
 
@@ -176,13 +183,483 @@
   </tr>
 </table>
 
+<br>
+<hr>
+<br>
+
+<br>
+<div style="display: flex;">
+
+    <div style="flex: 1; margin-right: 10px;">
+      <div style="width: 100%; height: 250px;">
+        <h3>Sterilizer Tank 1</h3>
+        <canvas id="pressureChart"></canvas>
+      </div>
+    </div>
+  
+    <div style="flex: 1;">
+      <div style="width: 100%; height: 250px;">
+        <h3>Sterilizer Tank 1</h3>
+        <canvas id="ampChart"></canvas>
+      </div>
+    </div>
+  
+  </div>
+
+
+<br>
+
+
+  <div style="display: flex;">
+
+    <div style="flex: 1; margin-right: 10px;">
+      <div style="width: 100%; height: 250px;">
+        <h3>Sterilizer Tank 2</h3>
+        <canvas id="pressureChart_2"></canvas>
+      </div>
+    </div>
+  
+    <div style="flex: 1;">
+      <div style="width: 100%; height: 250px;">
+        <h3>Sterilizer Tank 2</h3>
+        <canvas id="ampChart_2"></canvas>
+      </div>
+    </div>
+  
+  </div>
+
+  <br>
 
 
 
+  <div style="display: flex;">
+
+    <div style="flex: 1; margin-right: 10px;">
+      <div style="width: 100%; height: 250px;">
+        <h3>Sterilizer Tank 3</h3>
+        <canvas id="pressureChart_3"></canvas>
+      </div>
+    </div>
+  
+    <div style="flex: 1;">
+      <div style="width: 100%; height: 250px;">
+        <h3>Sterilizer Tank 3</h3>
+        <canvas id="ampChart_3"></canvas>
+      </div>
+    </div>
+  
+  </div>
 
 
 
 <script>
+// Define the dataElements array
+
+
+let pressureChart; // Define the ampChart variable
+const pressureData = []; // Array to store Amp data
+
+
+
+let ampChart; // Define the ampChart variable
+const ampData = []; // Array to store Amp data
+
+
+
+
+
+let pressureChart_2; // Define the ampChart variable
+const pressureData_2 = []; // Array to store Amp data
+
+
+
+let ampChart_2; // Define the ampChart variable
+const ampData_2 = []; // Array to store Amp data
+
+
+
+
+let pressureChart_3; // Define the ampChart variable
+const pressureData_3 = []; // Array to store Amp data
+
+
+
+let ampChart_3; // Define the ampChart variable
+const ampData_3 = []; // Array to store Amp data
+
+
+
+
+
+function createAmpChart() {
+  const ctx = document.getElementById('ampChart').getContext('2d');
+  ampChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Array.from({ length: ampData.length }, (_, i) => i + 1),
+      datasets: [{
+        label: 'Amp Data',
+        data: ampData,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2,
+        fill: true,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+
+function createPressureChart() {
+  const ctx = document.getElementById('pressureChart').getContext('2d');
+  pressureChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Array.from({ length: pressureData.length }, (_, i) => i + 1),
+      datasets: [{
+        label: 'Pressure Data',
+        data: pressureData,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)', // Blue color with some opacity
+        borderColor: 'rgba(54, 162, 235, 1)', // Blue color
+        borderWidth: 2,
+        fill: true,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+
+
+
+function updatePressureChart() {
+  if (pressureChart) {
+    pressureChart.data.labels = Array.from({ length:  pressureData.length }, (_, i) => i + 1);
+    pressureChart.data.datasets[0].data =  pressureData;
+    pressureChart.update();
+  } else {
+    createPressureChart();
+  }
+}
+
+
+
+function updateAmpChart() {
+  if (ampChart) {
+    ampChart.data.labels = Array.from({ length: ampData.length }, (_, i) => i + 1);
+    ampChart.data.datasets[0].data = ampData;
+    ampChart.update();
+  } else {
+    createAmpChart();
+  }
+}
+
+
+/*
+
+
+
+
+*/
+
+
+function createAmpChart_2() {
+  const ctx = document.getElementById('ampChart_2').getContext('2d');
+  ampChart_2 = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Array.from({ length: ampData_2.length }, (_, i) => i + 1),
+      datasets: [{
+        label: 'Amp Data 2',
+        data: ampData_2,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2,
+        fill: true,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+
+function createPressureChart_2() {
+  const ctx = document.getElementById('pressureChart_2').getContext('2d');
+  pressureChart_2 = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Array.from({ length: pressureData_2.length }, (_, i) => i + 1),
+      datasets: [{
+        label: 'Pressure Data 2',
+        data: pressureData_2,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)', // Blue color with some opacity
+        borderColor: 'rgba(54, 162, 235, 1)', // Blue color
+        borderWidth: 2,
+        fill: true,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+
+
+
+function updatePressureChart_2() {
+  if (pressureChart_2) {
+    pressureChart_2.data.labels = Array.from({ length:  pressureData_2.length }, (_, i) => i + 1);
+    pressureChart_2.data.datasets[0].data =  pressureData_2;
+    pressureChart_2.update();
+  } else {
+    createPressureChart_2();
+  }
+}
+
+
+
+function updateAmpChart_2() {
+  if (ampChart_2) {
+    ampChart_2.data.labels = Array.from({ length: ampData_2.length }, (_, i) => i + 1);
+    ampChart_2.data.datasets[0].data = ampData_2;
+    ampChart_2.update();
+  } else {
+    createAmpChart_2();
+  }
+}
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+*/
+
+
+
+
+function updatePressureChart_2() {
+  if (pressureChart_2) {
+    pressureChart_2.data.labels = Array.from({ length:  pressureData_2.length }, (_, i) => i + 1);
+    pressureChart_2.data.datasets[0].data =  pressureData_2;
+    pressureChart_2.update();
+  } else {
+    createPressureChart_2();
+  }
+}
+
+
+
+function updateAmpChart_2() {
+  if (ampChart_2) {
+    ampChart_2.data.labels = Array.from({ length: ampData_2.length }, (_, i) => i + 1);
+    ampChart_2.data.datasets[0].data = ampData_2;
+    ampChart_2.update();
+  } else {
+    createAmpChart_2();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+*/
+
+
+
+function createAmpChart_3() {
+  const ctx = document.getElementById('ampChart_3').getContext('2d');
+  ampChart_3 = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Array.from({ length: ampData_3.length }, (_, i) => i + 1),
+      datasets: [{
+        label: 'Amp Data 3',
+        data: ampData_3,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2,
+        fill: true,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+
+function createPressureChart_3() {
+  const ctx = document.getElementById('pressureChart_3').getContext('2d');
+  pressureChart_3 = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Array.from({ length: pressureData_3.length }, (_, i) => i + 1),
+      datasets: [{
+        label: 'Pressure Data 3',
+        data: pressureData_3,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)', // Blue color with some opacity
+        borderColor: 'rgba(54, 162, 235, 1)', // Blue color
+        borderWidth: 2,
+        fill: true,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+
+
+
+function updatePressureChart_3() {
+  if (pressureChart_3) {
+    pressureChart_3.data.labels = Array.from({ length:  pressureData_3.length }, (_, i) => i + 1);
+    pressureChart_3.data.datasets[0].data =  pressureData_3;
+    pressureChart_3.update();
+  } else {
+    createPressureChart_3();
+  }
+}
+
+
+
+function updateAmpChart_3() {
+  if (ampChart_3) {
+    ampChart_3.data.labels = Array.from({ length: ampData_3.length }, (_, i) => i + 1);
+    ampChart_3.data.datasets[0].data = ampData_3;
+    ampChart_3.update();
+  } else {
+    createAmpChart_3();
+  }
+}
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+*/
+
+
+
+
+function updatePressureChart_3() {
+  if (pressureChart_3) {
+    pressureChart_3.data.labels = Array.from({ length:  pressureData_3.length }, (_, i) => i + 1);
+    pressureChart_3.data.datasets[0].data =  pressureData_3;
+    pressureChart_3.update();
+  } else {
+    createPressureChart_3();
+  }
+}
+
+
+
+function updateAmpChart_3() {
+  if (ampChart_3) {
+    ampChart_3.data.labels = Array.from({ length: ampData_3.length }, (_, i) => i + 1);
+    ampChart_3.data.datasets[0].data = ampData_3;
+    ampChart_3.update();
+  } else {
+    createAmpChart_3();
+  }
+}
+
+
+
+
+
+
+/*
+
+
+
+
+
+
+
+
+
+
+*/
+
+
+
+
   function updateData() {
     const dataElements = [
       "data1", "data2", "data3", "data4", "data5", "data6","data7","data8","data9","data13","data14","data15","data16","data17","data18","data19","data20",
@@ -195,20 +672,116 @@
         element.textContent = getRandomValue(110,130);
       } else if(elementId == "data2"){
         element.textContent = getRandomValue(1,2);
+
+
+
+        
+   // Remove the oldest value if history exceeds 20 values
+   if (pressureData.length >= 20) {
+    pressureData.shift(); // Remove the oldest value
+  }
+
+  // Add new Amp value to the end of the data array
+  pressureData.push( element.textContent);
+  updatePressureChart();
+
+  /*
+
+
+
+  */
+
+
       }else if(elementId == "data3"){
         element.textContent = getRandomValue(75,85);
+
+   // Remove the oldest value if history exceeds 20 values
+   if (ampData.length >= 20) {
+    ampData.shift(); // Remove the oldest value
+  }
+
+  // Add new Amp value to the end of the data array
+  ampData.push( element.textContent);
+
+            // Update the Amp chart
+            updateAmpChart();
       } else if(elementId == "data7"){
         element.textContent = getRandomValue(110,130);  
       }else if(elementId == "data8"){
         element.textContent = getRandomValue(1,2);
+
+                
+   // Remove the oldest value if history exceeds 20 values
+   if (pressureData_2.length >= 20) {
+    pressureData_2.shift(); // Remove the oldest value
+  }
+
+  // Add new Amp value to the end of the data array
+  pressureData_2.push( element.textContent);
+  updatePressureChart_2();
+
+
+
       }else if(elementId == "data9"){
         element.textContent = getRandomValue(75,85);
+
+
+
+           // Remove the oldest value if history exceeds 20 values
+   if (ampData_2.length >= 20) {
+    ampData_2.shift(); // Remove the oldest value
+  }
+
+  // Add new Amp value to the end of the data array
+  ampData_2.push( element.textContent);
+
+            // Update the Amp chart
+            updateAmpChart_2();
+
+
+
+
+
+
       }else if(elementId == "data13"){
         element.textContent = getRandomValue(110,130);
       }else if(elementId == "data14"){
         element.textContent = getRandomValue(1,2);
+
+
+        
+                
+   // Remove the oldest value if history exceeds 20 values
+   if (pressureData_3.length >= 20) {
+    pressureData_3.shift(); // Remove the oldest value
+  }
+
+  // Add new Amp value to the end of the data array
+  pressureData_3.push( element.textContent);
+  updatePressureChart_3();
+
+
+
+
       }else if(elementId == "data15"){
         element.textContent = getRandomValue(75,85);
+
+
+                   // Remove the oldest value if history exceeds 20 values
+   if (ampData_3.length >= 20) {
+    ampData_3.shift(); // Remove the oldest value
+  }
+
+  // Add new Amp value to the end of the data array
+  ampData_3.push( element.textContent);
+
+            // Update the Amp chart
+            updateAmpChart_3();
+
+
+
+
+
       }else if(elementId == "data19"){
         element.textContent = getRandomValue(110,130);
       }else if(elementId == "data20"){
@@ -224,6 +797,38 @@
       }else{
 
       }
+
+
+
+      const chartData = [
+    getRandomValue(110, 130),
+    getRandomValue(1, 2),
+    getRandomValue(75, 85),
+    getRandomValue(110, 130),
+    getRandomValue(1, 2),
+    getRandomValue(75, 85),
+    getRandomValue(110, 130),
+    getRandomValue(1, 2),
+    getRandomValue(75, 85),
+    getRandomValue(110, 130),
+    getRandomValue(1, 2),
+    getRandomValue(75, 85),
+    getRandomValue(110, 130),
+    getRandomValue(1, 2),
+    getRandomValue(75, 85),
+    getRandomValue(110, 130),
+    getRandomValue(1, 2),
+    getRandomValue(75, 85),
+    getRandomValue(110, 130),
+    getRandomValue(1, 2),
+    getRandomValue(75, 85),
+  ];
+
+
+
+
+
+
     });
   }
   
